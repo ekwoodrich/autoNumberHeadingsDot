@@ -32,27 +32,55 @@ function numberHeadings(add){
     if( text.match(/^\s*$/)){
       continue;
     }
+    var level = new RegExp(/HEADING(\d)/).exec(type)[1];
 
     if (add == true) {
-      var level = new RegExp(/HEADING(\d)/).exec(type)[1];
       var numbering = '';
       
       numbers[level]++;
       for (var currentLevel = 1; currentLevel <= 6; currentLevel++) {
         if (currentLevel <= level) {
-          numbering += numbers[currentLevel] + '.';
+          if (currentLevel == 1) {
+            numbering += numbers[currentLevel] + '•';
+          }
+          else {
+            if (currentLevel == level) {
+              numbering += numbers[currentLevel];
+            }
+            else {
+              numbering += numbers[currentLevel] + '•';
+            }
+          }
         } else {
           numbers[currentLevel] = 0;
         }
       }
       Logger.log(text);
-      var newText = numbering + ' ' + text.replace(/^[0-9\.\s]+/, '');
+      var newText = numbering + ' ' + text.replace(/^[0-9\•\s]+/, '');
       element.setText(newText);
-      Logger.log([newText]);
+       Logger.log([newText]);
     } else {
       Logger.log(text);
-      element.setText(text.replace(/^[0-9\.\s]+/, ''));
+      element.setText(text.replace(/^[0-9\•\s]+/, ''));
     }
+      if (level == 1) {
+        paragraphs[i].setHeading(DocumentApp.ParagraphHeading.HEADING1);
+      }
+      else if (level == 2) {
+        paragraphs[i].setHeading(DocumentApp.ParagraphHeading.HEADING2);
+      }
+      else if (level == 3) {
+        paragraphs[i].setHeading(DocumentApp.ParagraphHeading.HEADING3);
+      }
+      else if (level == 4) {
+        paragraphs[i].setHeading(DocumentApp.ParagraphHeading.HEADING4);
+      }
+      else if (level == 5) {
+        paragraphs[i].setHeading(DocumentApp.ParagraphHeading.HEADING5);
+      }
+      else if (level == 6) {
+        paragraphs[i].setHeading(DocumentApp.ParagraphHeading.HEADING6);
+      }
   }
 
 }
