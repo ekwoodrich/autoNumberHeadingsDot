@@ -41,14 +41,14 @@ function numberHeadings(add){
       for (var currentLevel = 1; currentLevel <= 6; currentLevel++) {
         if (currentLevel <= level) {
           if (currentLevel == 1) {
-            numbering += numbers[currentLevel] + '•';
+            numbering += numbers[currentLevel] + getSeperator(level);
           }
           else {
             if (currentLevel == level) {
-              numbering += numbers[currentLevel];
+              numbering += numbers[currentLevel] + ' ';
             }
             else {
-              numbering += numbers[currentLevel] + '•';
+              numbering += numbers[currentLevel] + getSeperator(level);
             }
           }
         } else {
@@ -83,4 +83,12 @@ function numberHeadings(add){
       }
   }
 
+}
+function getSeperator(level) {
+  if (parseInt(level) <= 2) {
+    return ' • '
+  }
+  else {
+    return '•'
+  }
 }
